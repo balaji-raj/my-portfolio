@@ -6,12 +6,14 @@ import Projects from "./components/Projects";
 import Certification from "./components/Certification";
 import Contact from "./components/Contact";
 import "./App.css";
+import HeroSection from "./components/HeroSection";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <main style={{padding: "1rem"}}>
+        <HeroSection />
         <Skills />
         <Experience />
         <Projects />

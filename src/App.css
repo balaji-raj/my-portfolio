@@ -1,38 +1,321 @@
-.App {
-  text-align: center;
+﻿/* src/App.css - Formal portfolio theme, Arial font (updated with per-row arrows) */
+:root{
+  --bg:#f6f7f9;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --text:#1f2937;
+  --accent:#0a4f7a;
+  --accent-weak:#0f5f94;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,body,#root{
+  height:100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Page layout */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+/* Header / Hero */
+.hero {
+  background: linear-gradient(180deg, rgba(10,79,122,0.95), rgba(10,79,122,0.85));
+  color: #fff;
+  padding: 64px 0;
+}
+.hero .hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  color: #fff;
+}
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+.hero-subtitle {
+  margin: 0 0 18px 0;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.9);
+}
+.hero-button {
+  display:inline-block;
+  background: #fff;
+  color: var(--accent);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight:600;
+  text-decoration:none;
+}
+
+/* Section headings */
+section {
+  padding: 36px 0;
+}
+section h2 {
+  font-size: 1.25rem;
+  margin: 0 0 18px 0;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+/* Cards row (horizontal scroll) */
+.cards-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.cards-row {
+  display:flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 4px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.cards-row::-webkit-scrollbar { height: 10px; }
+.cards-row::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 8px; }
+
+/* Card base */
+.card {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid rgba(16,24,40,0.06);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(16,24,40,0.04);
+  flex: 0 0 300px; /* ensures horizontal scroll when more than ~3-4 in narrow widths */
+  min-width: 260px;
+  scroll-snap-align: start;
+}
+
+/* Skill card */
+.skill-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.skill-card ul { margin: 8px 0 0 0; padding-left: 18px; color: var(--muted); }
+.skill-card li { margin-bottom: 6px; }
+
+/* Project card */
+.project-card h3 { margin: 0 0 8px 0; font-size: 1.05rem; }
+.project-card p { margin: 6px 0; color: var(--muted); }
+.project-card .tech { font-weight:600; color: var(--accent); }
+
+/* Experience (Accordion) */
+.accordion {
+  max-width: 900px;
+}
+.accordion .accordion-item {
+  border: 1px solid rgba(16,24,40,0.06);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: var(--card);
+  overflow: hidden;
+}
+.accordion-header button {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.accordion-header button:focus { outline: 3px solid rgba(10,79,122,0.12); }
+.accordion-panel {
+  padding: 0 16px 16px 16px;
+  color: var(--muted);
+}
+
+/* Header (simplified without global scroll buttons) */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(16,24,40,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+.site-header .header-inner {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(16,24,40,0.06);
+}
+.name { font-weight: 700; color: var(--text); font-size: 1rem; }
+.tagline { font-size: 0.85rem; color: var(--muted); }
+
+/* Nav */
+.main-nav { display: none; gap: 8px; }
+.main-nav a {
+  margin: 0 6px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 6px;
+}
+.main-nav a:hover { background: rgba(10,79,122,0.06); color: var(--accent); }
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.contact-info { background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid rgba(16,24,40,0.06); }
+.contact-info h3 { margin-top: 0; }
+.contact-form { display: none; } /* removed form from layout */
+
+.form-status {
+  margin-top: 8px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Per-row overlay arrows */
+.row-controls {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none; /* allow clicks through except buttons */
+}
+.row-controls button {
+  pointer-events: auto;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(16,24,40,0.06);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+}
+.row-controls button:hover { background: #fff; transform: translateY(-1px); }
+
+/* small screens show smaller buttons */
+@media (max-width: 520px) {
+  .row-controls button { width: 34px; height: 34px; font-size: 1.05rem; }
+}
+
+/* Responsive */
+@media (min-width: 800px) {
+  .main-nav { display: flex; }
+  .contact-grid { grid-template-columns: 1fr 360px; }
+  .card { flex: 0 0 320px; min-width:300px; }
+}
+/* Skills Trends styles (append) */
+.skills-trends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* chip base */
+.skill-chip {
+  border: 1px solid rgba(16,24,40,0.06);
+  background: var(--card);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 160ms;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.03);
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+/* sizes */
+.skill-chip.size-xs { font-size: 0.78rem; padding: 6px 10px; opacity: 0.95; }
+.skill-chip.size-sm { font-size: 0.85rem; padding: 7px 11px; }
+.skill-chip.size-md { font-size: 0.95rem; padding: 8px 12px; }
+.skill-chip.size-lg { font-size: 1.05rem; padding: 10px 14px; }
+.skill-chip.size-xl { font-size: 1.18rem; padding: 12px 16px; }
+
+/* active / muted states */
+.skill-chip.chip-muted { opacity: 0.28; transform: scale(0.98); }
+.skill-chip.chip-visible { opacity: 1; transform: scale(1); }
+
+/* focus for accessibility */
+.skill-chip:focus {
+  outline: 3px solid rgba(10,79,122,0.14);
+  transform: translateY(-2px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* label layout */
+.chip-label { white-space: nowrap; }
+
+/* Responsive: ensure readability on very small screens */
+@media (max-width: 420px) {
+  .skill-chip.size-xl { font-size: 1.02rem; padding: 8px 10px; }
+  .skill-chip.size-lg { font-size: 0.95rem; padding: 8px 10px; }
+  .skill-chip { margin-bottom: 4px; }
+}
+
+@media (min-width: 1000px) {
+  .projects .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    overflow: visible;
+    padding: 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  .projects .row-controls {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .projects .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .projects .row-controls {
+    display: none;
   }
 }
