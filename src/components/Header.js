@@ -8,7 +8,7 @@ function Header() {
           <img src="/profile.jpg" alt="Balaji Rajendran" className="avatar" />
           <div>
             <div className="name">Balaji Rajendran</div>
-            <div className="tagline">Technical Manager • Cloud & Frontend Specialist</div>
+            <div className="tagline">Technical Manager • Cloud & Full Stack Specialist</div>
           </div>
         </div>
 

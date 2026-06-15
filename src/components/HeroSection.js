@@ -5,7 +5,7 @@ const HeroSection = () => {
     <section className="hero" aria-label="hero">
       <div className="hero-content container">
         <h1 className="hero-title">Balaji Rajendran</h1>
-        <p className="hero-subtitle">IT Technical Manager | Cloud & Frontend Specialist</p>
+        <p className="hero-subtitle">IT Technical Manager | Cloud & Full Stack Specialist</p>
         <a href="#projects" className="hero-button">
           View My Work
         </a>
