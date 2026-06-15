@@ -6,7 +6,7 @@ function Contact() {
       <h2>Contact</h2>
       <p>
         <strong>Email:</strong> <a href="mailto:balaji7863@gmail.com">balaji7863@gmail.com</a><br />
-        <strong>Phone:</strong> <a href="tel:+919790266780">+91 97902 66780</a>
+        <strong>Phone:</strong> <a href="tel:+919790266780">+91 9790266780</a>
       </p>
 
       <p>
