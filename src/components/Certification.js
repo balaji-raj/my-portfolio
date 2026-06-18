@@ -1,5 +1,4 @@
-import React from "react";
-
+// eslint-disable-next-line
 const certs = [
   {name: "OCJP Certification", date: "Jun 2022", logo: "/logos/oracle.png"},
   {name: "Google Analytics", date: "Jun 2022", logo: "/logos/google.png"},

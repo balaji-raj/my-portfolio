@@ -1,5 +1,4 @@
-﻿import React from "react";
-
+// eslint-disable-next-line
 function Contact() {
   return (
     <section className="contact container" id="contact" aria-labelledby="contact-heading">
