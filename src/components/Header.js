@@ -1,5 +1,4 @@
-﻿import React from "react";
-
+// eslint-disable-next-line
 function Header() {
   return (
     <header className="site-header" role="banner">

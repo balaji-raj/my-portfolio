@@ -1,4 +1,4 @@
-﻿// eslint-disable-next-line
+// eslint-disable-next-line
 const HeroSection = () => {
   return (
     <section className="hero" aria-label="hero">

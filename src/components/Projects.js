@@ -1,4 +1,5 @@
-﻿import React, { useRef } from "react";
+// eslint-disable-next-line
+import React, { useRef } from "react";
 
 const projects = [
   {
