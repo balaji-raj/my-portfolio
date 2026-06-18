@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const skillGroups = [
   {
@@ -146,17 +146,17 @@ function Skills() {
           const sizeClass = sizeForCount(tag.count);
           const isActive = active === null || active === tag.label;
           return (
-            <button
-              key={tag.label}
-              type="button"
-              role="listitem"
-              className={`skill-chip size-${sizeClass} ${isActive ? "chip-visible" : "chip-muted"}`}
-              onClick={() => setActive((prev) => (prev === tag.label ? null : tag.label))}
-              title={`${tag.label} — groups: ${groupsByTag[tag.label].join(", ")}`}
-              aria-pressed={active === tag.label}
-            >
-              <span className="chip-label">{tag.label}</span>
-            </button>
+            <div key={tag.label} role="listitem">
+              <button
+                type="button"
+                className={`skill-chip size-${sizeClass} ${isActive ? "chip-visible" : "chip-muted"}`}
+                onClick={() => setActive((prev) => (prev === tag.label ? null : tag.label))}
+                title={`${tag.label} — groups: ${groupsByTag[tag.label].join(", ")}`}
+                aria-pressed={active === tag.label}
+              >
+                <span className="chip-label">{tag.label}</span>
+              </button>
+            </div>
           );
         })}
       </div>

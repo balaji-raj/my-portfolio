@@ -1,5 +1,4 @@
-﻿import React from "react";
-
+﻿// eslint-disable-next-line
 const HeroSection = () => {
   return (
     <section className="hero" aria-label="hero">
