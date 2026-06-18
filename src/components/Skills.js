@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo, useState } from "react";
 
 const skillGroups = [
   {
@@ -8,7 +8,7 @@ const skillGroups = [
       "TypeScript/JavaScript",
       "React.js",
       "Angular (1.x–14+)",
-      "SAPUI5 -Fiori",
+      "SAPUI5 - Fiori",
       "HTML5",
       "CSS3",
       "Responsive UI",
@@ -16,7 +16,7 @@ const skillGroups = [
     ]
   },
   {
-    title: "Frameworks/Tooling",
+    title: "Frameworks / Tooling",
     emoji: "🛠️",
     items: [
       "Jest",
@@ -29,7 +29,7 @@ const skillGroups = [
     ]
   },
   {
-    title: "Backend/Services",
+    title: "Backend / Services",
     emoji: "🔗",
     items: [
       "Node.js",
@@ -40,7 +40,7 @@ const skillGroups = [
     ]
   },
   {
-    title: "Cloud/DevOps",
+    title: "Cloud / DevOps",
     emoji: "☁️",
     items: [
       "Azure DevOps",
@@ -52,7 +52,7 @@ const skillGroups = [
     ]
   },
   {
-    title: "Data/BI",
+    title: "Data / BI",
     emoji: "📊",
     items: [
       "Tableau",
@@ -63,7 +63,7 @@ const skillGroups = [
     ]
   },
   {
-    title: "Leadership/PM",
+    title: "Leadership / PM",
     emoji: "📌",
     items: [
       "Technical Management",
@@ -91,38 +91,110 @@ const skillGroups = [
 ];
 
 function Skills() {
+  const { tags, groupsByTag } = useMemo(() => {
+    const countMap = new Map();
+    const groupsMap = {};
+
+    skillGroups.forEach((group) => {
+      group.items.forEach((item) => {
+        const label = item.trim();
+        countMap.set(label, (countMap.get(label) || 0) + 1);
+        groupsMap[label] = groupsMap[label] || new Set();
+        groupsMap[label].add(group.title);
+      });
+    });
+
+    const tagsArray = Array.from(countMap.entries())
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+
+    const groupsPlain = Object.fromEntries(
+      Object.entries(groupsMap).map(([label, set]) => [label, Array.from(set)])
+    );
+
+    return { tags: tagsArray, groupsByTag: groupsPlain };
+  }, []);
+
+  const [active, setActive] = useState(null);
+
+  const counts = tags.map((tag) => tag.count);
+  const minCount = Math.min(...counts);
+  const maxCount = Math.max(...counts);
+
+  const sizeForCount = (count) => {
+    if (maxCount === minCount) return "md";
+    const ratio = (count - minCount) / (maxCount - minCount);
+    if (ratio >= 0.85) return "xl";
+    if (ratio >= 0.6) return "lg";
+    if (ratio >= 0.35) return "md";
+    if (ratio >= 0.15) return "sm";
+    return "xs";
+  };
+
+  const activeGroupBadges = active ? groupsByTag[active] || [] : [];
+
   return (
-    <section className="skills">
-      <h2>Core Skills</h2>
-      <div style={{
-        display: "flex",
-        gap: "1rem",
-        flexWrap: "wrap",
-        marginTop: 8
-      }}>
-        {skillGroups.map(group => (
-          <div
-            key={group.title}
-            style={{
-              border: "1px solid #e0e0e0",
-              padding: "0.9rem",
-              borderRadius: 8,
-              minWidth: 140,
-              background: "#fff",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.03)"
-            }}
-          >
-            <h3 style={{ margin: "0 0 8px 0", fontSize: 16 }}>
-              <span style={{ marginRight: 6 }}>{group.emoji}</span>
-              {group.title}
-            </h3>
-            <ul style={{ margin: 0, paddingLeft: 18 }}>
-              {group.items.map(item => (
-                <li style={{listStyle: 'none', marginBottom: 4}} key={item}>{item}</li>
+    <section className="skills container" id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills Trends</h2>
+
+      <p style={{ marginTop: 0, color: "var(--muted)" }}>
+        Visual trend of key skills — larger items indicate strengths or repeated presence across groups. Click a skill to highlight related groups.
+      </p>
+
+      <div className="skills-trends" role="list">
+        {tags.map((tag) => {
+          const sizeClass = sizeForCount(tag.count);
+          const isActive = active === null || active === tag.label;
+          return (
+            <div key={tag.label} role="listitem">
+              <button
+                type="button"
+                className={`skill-chip size-${sizeClass} ${isActive ? "chip-visible" : "chip-muted"}`}
+                onClick={() => setActive((prev) => (prev === tag.label ? null : tag.label))}
+                title={`${tag.label} — groups: ${groupsByTag[tag.label].join(", ")}`}
+                aria-pressed={active === tag.label}
+              >
+                <span className="chip-label">{tag.label}</span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="skills-legend" style={{ marginTop: "16px" }}>
+        {active ? (
+          <>
+            <div style={{ marginBottom: "10px", fontWeight: 600, color: "var(--text)" }}>
+              Matching skill group badges for <span style={{ color: "var(--accent)" }}>{active}</span>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              {activeGroupBadges.map((group) => (
+                <span
+                  key={group}
+                  className="skill-group-badge"
+                  style={{
+                    background: "rgba(10,79,122,0.08)",
+                    color: "var(--accent-weak)",
+                    borderRadius: "999px",
+                    padding: "6px 12px",
+                    fontSize: "0.95rem",
+                    fontWeight: 600
+                  }}
+                >
+                  {group}
+                </span>
               ))}
-            </ul>
-          </div>
-        ))}
+            </div>
+          </>
+        ) : (
+          <div style={{ color: "var(--muted)" }}>Select a skill to show matching skill group badges.</div>
+        )}
+      </div>
+
+      <div style={{ marginTop: 12 }}>
+        <small style={{ color: "var(--muted)" }}>
+          Tip: click a skill to focus it; click again to show all.
+        </small>
       </div>
     </section>
   );

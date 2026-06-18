@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React, { useRef } from "react";
 
 const projects = [
   {
@@ -34,18 +34,34 @@ const projects = [
 ];
 
 function Projects() {
+  const rowRef = useRef(null);
+
+  const scrollBy = (delta) => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: delta, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="projects">
+    <section className="projects container" id="projects" aria-label="projects">
       <h2>Key Projects</h2>
-      <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem"}}>
-        {projects.map(p => (
-          <div key={p.title} className="project-card" style={{border: "1px solid #ddd", padding: "1rem", borderRadius: 8}}>
-            <h3>{p.title}</h3>
-            <p style={{margin: "6px 0"}}>{p.description}</p>
-            <p style={{margin: "6px 0"}}><strong>Tech:</strong> {p.technologies.join(", ")}</p>
-            <p style={{margin: "6px 0"}}><strong>Outcome:</strong> {p.outcome}</p>
-          </div>
-        ))}
+
+      <div className="cards-wrapper">
+        <div className="row-controls" aria-hidden="false">
+          <button onClick={() => scrollBy(-360)} aria-label="Scroll projects left">‹</button>
+          <button onClick={() => scrollBy(360)} aria-label="Scroll projects right">›</button>
+        </div>
+
+        <div className="cards-row" ref={rowRef}>
+          {projects.map(p => (
+            <div key={p.title} className="card project-card" tabIndex="0">
+              <h3>{p.title}</h3>
+              <p>{p.description}</p>
+              <p className="tech"><strong>Tech:</strong> {p.technologies.join(", ")}</p>
+              <p><strong>Outcome:</strong> {p.outcome}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

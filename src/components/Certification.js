@@ -9,7 +9,7 @@ const certs = [
 
 function Certification() {
   return (
-    <section className="certification">
+    <section className="certification container">
       <h2>Certifications</h2>
       <div style={{display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center"}}>
         {certs.map(c => (
